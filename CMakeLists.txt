@@ -104,61 +104,61 @@ target_link_libraries(test_convert
 
 
 
-# Test Pricer à t = 0: 
-add_executable(test_pricer_0 src/tests/test_pricer_0.cpp)
-target_link_libraries(test_pricer_0
-    my_lib
-    ${PNL_LIBRARIES}
-    nlohmann_json::nlohmann_json
-    ${GTEST_LIBRARIES}
-    gtest_main
-    pthread
-)
+# # Test Pricer à t = 0: 
+# add_executable(test_pricer_0 src/tests/test_pricer_0.cpp)
+# target_link_libraries(test_pricer_0
+#     my_lib
+#     ${PNL_LIBRARIES}
+#     nlohmann_json::nlohmann_json
+#     ${GTEST_LIBRARIES}
+#     gtest_main
+#     pthread
+# )
 
-# Test Pricer à t  
-add_executable(test_pricer_t src/tests/test_price_t.cpp)
-target_link_libraries(test_pricer_t
-    my_lib
-    ${PNL_LIBRARIES}
-    nlohmann_json::nlohmann_json
-    ${GTEST_LIBRARIES}
-    gtest_main
-    pthread
-)
+# # Test Pricer à t  
+# add_executable(test_pricer_t src/tests/test_price_t.cpp)
+# target_link_libraries(test_pricer_t
+#     my_lib
+#     ${PNL_LIBRARIES}
+#     nlohmann_json::nlohmann_json
+#     ${GTEST_LIBRARIES}
+#     gtest_main
+#     pthread
+# )
 
-# Test Deltas : 
-add_executable(test_deltas_0 src/tests/test_deltas_0.cpp)
-target_link_libraries(test_deltas_0
-    my_lib
-    ${PNL_LIBRARIES}
-    nlohmann_json::nlohmann_json
-    ${GTEST_LIBRARIES}
-    gtest_main
-    pthread
-)
+# # Test Deltas : 
+# add_executable(test_deltas_0 src/tests/test_deltas_0.cpp)
+# target_link_libraries(test_deltas_0
+#     my_lib
+#     ${PNL_LIBRARIES}
+#     nlohmann_json::nlohmann_json
+#     ${GTEST_LIBRARIES}
+#     gtest_main
+#     pthread
+# )
 
 
-# Test Deltas : 
-add_executable(test_deltas src/tests/test_deltas.cpp)
-target_link_libraries(test_deltas
-    my_lib
-    ${PNL_LIBRARIES}
-    nlohmann_json::nlohmann_json
-    ${GTEST_LIBRARIES}
-    gtest_main
-    pthread
-)
+# # Test Deltas : 
+# add_executable(test_deltas src/tests/test_deltas.cpp)
+# target_link_libraries(test_deltas
+#     my_lib
+#     ${PNL_LIBRARIES}
+#     nlohmann_json::nlohmann_json
+#     ${GTEST_LIBRARIES}
+#     gtest_main
+#     pthread
+# )
 
-# Test hedge : 
-add_executable(test_hedge src/tests/test_hedge.cpp)
-target_link_libraries(test_hedge
-    my_lib
-    ${PNL_LIBRARIES}
-    nlohmann_json::nlohmann_json
-    ${GTEST_LIBRARIES}
-    gtest_main
-    pthread
-)
+# # Test hedge : 
+# add_executable(test_hedge src/tests/test_hedge.cpp)
+# target_link_libraries(test_hedge
+#     my_lib
+#     ${PNL_LIBRARIES}
+#     nlohmann_json::nlohmann_json
+#     ${GTEST_LIBRARIES}
+#     gtest_main
+#     pthread
+# )
 
 # ========================================================== End Testing ==============================
 

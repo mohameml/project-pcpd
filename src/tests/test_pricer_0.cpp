@@ -11,7 +11,9 @@ void test(std::string name_file_json, std::string name_file_json_expecetd)
     MonteCarlo *monte_carlo = convert_json_to_monte_carlo(name_file_json);
     double price = 0.0;
     double price_std_dev = 0.0;
-    monte_carlo->price(price, price_std_dev);
+    PnlVect *delta = pnl_vect_create(monte_carlo->option->option_size);
+    PnlVect *delta_std_dev = pnl_vect_create(monte_carlo->option->option_size);
+    monte_carlo->price(price, price_std_dev, delta, delta_std_dev);
 
     double price_expecetd;
     double price_std_dev_expecetd;
@@ -31,6 +33,8 @@ void test(std::string name_file_json, std::string name_file_json_expecetd)
     std::cout << "PASSED" << std::endl;
     std::cout << "\033[0m";
     delete monte_carlo;
+    pnl_vect_free(&delta);
+    pnl_vect_free(&delta_std_dev);
     file.close();
 }
 

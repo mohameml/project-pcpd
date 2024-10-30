@@ -16,11 +16,10 @@ int main(int argc, char *argv[])
 
     double prix;
     double prix_std_dev;
-    PnlVect *delta = pnl_vect_create(monte_carlo->option->option_size);
-    PnlVect *delta_std_dev = pnl_vect_create(monte_carlo->option->option_size);
+    PnlVect *delta = pnl_vect_create_from_zero(monte_carlo->option->option_size);
+    PnlVect *delta_std_dev = pnl_vect_create_from_zero(monte_carlo->option->option_size);
 
-    monte_carlo->price(prix, prix_std_dev);
-    monte_carlo->delta(delta, delta_std_dev);
+    monte_carlo->price(prix, prix_std_dev, delta, delta_std_dev);
 
     PricingResults res(prix, prix_std_dev, delta, delta_std_dev);
     std::cout << res << std::endl;

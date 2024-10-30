@@ -25,7 +25,7 @@ public:
     MonteCarlo(Option *option, BlackScholesModel *model, int N, int M, double H, double h);
     ~MonteCarlo();
     // calculer le price
-    void price(double &price, double &price_std);
+    void price(double &price, double &price_std, PnlVect *deltas_vect, PnlVect *stddev_deltas_vect);
     void price(double t, double &price, double &price_std, const PnlMat *Past);
     void get_cotations(double t, PnlMat *cots, PnlMat *market_data);
     // void get_matrix_of_sim(double t , PnlMat *matrix);
@@ -35,9 +35,7 @@ public:
     void delta(PnlMat *past, PnlVect *deltas_vect, PnlVect *stddev_deltas_vect, double t);
     void delta(PnlVect *deltas_vect, PnlVect *stddev_deltas_vect);
     // void getCouvPrtf(PnlMat *Past, PnlMat *market_data, double &p_and_l, double t);
-    void calculPAndL(PnlMat *market_data, double &p_and_l);
-    void deltaCall(PnlVect *St_i, double t, PnlVect *delta);
-
+    // void calculPAndL(PnlMat *market_data, double &p_and_l);
 };
 
 #endif
