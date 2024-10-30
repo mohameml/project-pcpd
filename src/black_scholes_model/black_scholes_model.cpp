@@ -96,12 +96,9 @@ void BlackScholesModel::asset(const PnlMat *past, double t, double T, PnlMat *pa
 
 void BlackScholesModel::shift_asset(int d, double h, PnlMat *original_paths)
 {
-    int nb_lines = original_paths->m;
-
-    for (int i = 1; i < nb_lines; i++)
+    for (int i = 1; i < original_paths->m; i++)
     {
-        // MLET(original_paths,i , d ) =
-        pnl_mat_set(original_paths, i, d, pnl_mat_get(original_paths, i, d) * (h));
+        pnl_mat_set(original_paths, i, d, pnl_mat_get(original_paths, i, d) * h);
     };
 }
 
@@ -112,6 +109,6 @@ void BlackScholesModel::shift_asset(int d, double t, double h, PnlMat *original_
     int index = compute_last_index(t, T, nb_lines - 1);
     for (int i = index + 1; i < nb_lines; i++)
     {
-        pnl_mat_set(original_paths, i, d, pnl_mat_get(original_paths, i, d) * (h));
+        pnl_mat_set(original_paths, i, d, pnl_mat_get(original_paths, i, d) * h);
     };
 }

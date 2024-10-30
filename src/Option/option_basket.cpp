@@ -8,22 +8,21 @@ OptionBasket::OptionBasket(double T, double K, OptionType type, double D, PnlVec
 
 double OptionBasket::payOff(PnlMat *matrix)
 {
-    int D = this->option_size;
+    // ====================== méthode avec allocation : ==============
+    // PnlVect *S_T = pnl_vect_create(option_size);
+    // pnl_mat_get_row(S_T, matrix, matrix->m - 1);
+    // double res = pnl_vect_scalar_prod(S_T, this->payoff_coeffcients) - this->strike;
+    // pnl_vect_free(&S_T);
+    // return std::max(res, 0.0);
 
-    PnlVect *S_T = pnl_vect_create(D);
-    pnl_mat_get_row(S_T, matrix, matrix->m - 1);
+    // ====================== méthode sans allocation : ==============
+    double res = 0;
+    for (int d = 0; d < this->option_size; d++)
+    {
+        res += MGET(matrix, matrix->m - 1, d) * GET(this->payoff_coeffcients, d);
+    }
 
-    // double res = 0;
-    // for (int d = 0; d < this->option_size; d++)
-    // {
-    //     res += MGET(matrix, matrix->m - 1, d) * GET(this->payoff_coeffcients, d);
-    // }
-
-    double res = pnl_vect_scalar_prod(S_T, this->payoff_coeffcients) - this->strike;
-    // free
-    pnl_vect_free(&S_T);
-
-    return std::max(0.0, res);
+    return std::max(res - strike, 0.0);
 }
 
 OptionBasket::~OptionBasket()
