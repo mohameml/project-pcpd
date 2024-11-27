@@ -59,14 +59,10 @@ add_executable(test_compute_lastdate src/test_compute_lastdate.cpp)
 
 # my_lib 
 # Utiliser GLOB pour inclure tous les fichiers source
-file(GLOB HELPER_FILE src/json_helper.cpp src/pcpd_helper.cpp)
-file(GLOB OPTION_FILES src/Option/*.cpp)
-file(GLOB BSM_FILES src/black_scholes_model/*.cpp)
-file(GLOB MONTCARLO_FILES src/monte_carlo/*.cpp)
-file(GLOB UTILS_FILES src/Utils/*.cpp)
+file(GLOB SRC_FILES src/*.cpp)
 
 # Créer la bibliothèque avec tous les fichiers .cpp trouvés
-add_library(my_lib ${SRC_FILES} ${OPTION_FILES} ${BSM_FILES} ${MONTCARLO_FILES} ${UTILS_FILES} ${HELPER_FILE})
+add_library(my_lib ${SRC_FILES} )
 
 
 # Pour compiler vos exécutables, compléter les lignes ci-dessous.
@@ -92,15 +88,15 @@ include_directories(${GTEST_INCLUDE_DIRS})
 
 
 # Test Convert : src/Utils/convert.cpp
-add_executable(test_convert src/tests/test_convert.cpp)
-target_link_libraries(test_convert
-    my_lib
-    ${PNL_LIBRARIES}
-    nlohmann_json::nlohmann_json
-    ${GTEST_LIBRARIES}
-    gtest_main
-    pthread
-)
+# add_executable(test_convert src/tests/test_convert.cpp)
+# target_link_libraries(test_convert
+#     my_lib
+#     ${PNL_LIBRARIES}
+#     nlohmann_json::nlohmann_json
+#     ${GTEST_LIBRARIES}
+#     gtest_main
+#     pthread
+# )
 
 
 

@@ -1,8 +1,10 @@
 #include <iostream>
-#include "monte_carlo/monte_carlo.hpp"
-#include "Utils/convert.hpp"
-#include "monte_carlo/monte_carlo.hpp"
 #include "pnl/pnl_vector.h"
+#include "MonteCarlo.hpp"
+#include <fstream>
+#include "pcpd_helper.hpp"
+
+using namespace std;
 
 int main(int argc, char *argv[])
 {
@@ -12,14 +14,21 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
-    MonteCarlo *monte_carlo = convert_json_to_monte_carlo(argv[1]);
+    std::ifstream file(argv[1]);
+    if (!file.is_open())
+    {
+        std::cerr << "Error opening file" << std::endl;
+        exit(1);
+    }
+    nlohmann::json json = nlohmann::json::parse(file);
+    MonteCarlo *monte_carlo = new MonteCarlo(json);
 
     double prix;
     double prix_std_dev;
-    PnlVect *delta = pnl_vect_create_from_zero(monte_carlo->option->option_size);
-    PnlVect *delta_std_dev = pnl_vect_create_from_zero(monte_carlo->option->option_size);
+    PnlVect *delta = pnl_vect_create_from_zero(monte_carlo->option->size);
+    PnlVect *delta_std_dev = pnl_vect_create_from_zero(monte_carlo->option->size);
 
-    monte_carlo->price(prix, prix_std_dev, delta, delta_std_dev);
+    monte_carlo->price_delta(prix, prix_std_dev, delta, delta_std_dev);
 
     PricingResults res(prix, prix_std_dev, delta, delta_std_dev);
     std::cout << res << std::endl;

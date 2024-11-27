@@ -1,7 +1,7 @@
 #include <iostream>
-#include "monte_carlo/monte_carlo.hpp"
-#include "Utils/convert.hpp"
-#include "monte_carlo/monte_carlo.hpp"
+#include "MonteCarlo.hpp"
+#include "pcpd_helper.hpp"
+#include <fstream>
 
 int main(int argc, char *argv[])
 {
@@ -9,15 +9,21 @@ int main(int argc, char *argv[])
     {
         std::cout << "Le nombre d'arguments attendu est 3" << std::endl;
     }
-
-    MonteCarlo *monte_carlo = convert_json_to_monte_carlo(argv[2]);
+    std::ifstream file(argv[2]);
+    if (!file.is_open())
+    {
+        std::cerr << "Error opening file" << std::endl;
+        exit(1);
+    }
+    nlohmann::json json = nlohmann::json::parse(file);
+    MonteCarlo *monte_carlo = new MonteCarlo(json);
     PnlMat *data = pnl_mat_create_from_file(argv[1]);
-    double prix;
-    double prix_std_dev;
-    PnlVect *delta = pnl_vect_create_from_zero(monte_carlo->option->option_size);
-    PnlVect *delta_std_dev = pnl_vect_create_from_zero(monte_carlo->option->option_size);
-    double erreur_couverture;
-    monte_carlo->price(prix, prix_std_dev, delta, delta_std_dev);
+    double prix = 0.0;
+    double prix_std_dev = 0.0;
+    PnlVect *delta = pnl_vect_create_from_zero(monte_carlo->option->size);
+    PnlVect *delta_std_dev = pnl_vect_create_from_zero(monte_carlo->option->size);
+    double erreur_couverture = 0.0;
+    monte_carlo->price_delta(prix, prix_std_dev, delta, delta_std_dev);
     monte_carlo->calculPAndL(data, erreur_couverture);
 
     HedgingResults res(prix, prix_std_dev, erreur_couverture);
