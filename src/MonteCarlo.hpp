@@ -58,6 +58,28 @@ public:
      * @param[in] p_and_l : valeur finale du P&L
      */
     void calculPAndL(PnlMat *market_data, double &p_and_l);
+
+protected:
+    /**
+     * terime le  calucl de prix et std_prix :
+     *
+     * @param[in, out] price
+     * @param[in, out] stdDev
+     * @param nSamples : nombre de tirage de MC
+     * @param t current date
+     */
+    void end_of_calcul_price(double &price, double &stdDev, double t) const;
+
+    /**
+     * terime le  calucl de delta :
+     *
+     * @param[in, out] price
+     * @param[in, out] stdDev
+     * @param nSamples : nombre de tirage de MC
+     * @param t current date
+     * @param St : vecteur de prix du sous-jacent
+     */
+    void end_of_calcul_delta(PnlVect *delta, PnlVect *delta_stdev, double t, PnlVect *St) const;
 };
 
 #endif
